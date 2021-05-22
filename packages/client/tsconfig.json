@@ -1,10 +1,16 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./src",
     "paths": {
-      "*": ["types/common/*.d.ts"]
+      // "*": ["types/common/*.d.ts"]
+      // "*": ["node_modules/*"],
+      "World": ["World/index.ts"],
+      "Collision": ["Collision/index.ts"],
+      "Renderer": ["Renderer/index.ts"],
+      "Base": ["Base/index.ts"]
     },
     "lib": ["DOM"]
   },
-  "include": ["**/*.ts", "types/**/*.d.ts"]
+  "include": ["**/*.ts"]
 }

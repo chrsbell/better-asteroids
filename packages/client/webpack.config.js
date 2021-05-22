@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
-  entry: path.join(__dirname, 'src/index.ts'),
+  entry: path.resolve(__dirname, 'src/index.ts'),
   output: {
     path: path.resolve(__dirname, '../../public'),
     filename: '[name].[contenthash].js',
@@ -24,6 +24,7 @@ const config = {
   },
   resolve: {
     extensions: ['.ts', '.js'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
   },
   plugins: [
     new HtmlWebpackPlugin({
