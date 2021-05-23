@@ -1,14 +1,18 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./src/Game",
     "paths": {
       // "*": ["types/common/*.d.ts"]
       // "*": ["node_modules/*"],
-      "World": ["World/index.ts"],
+      "Base": ["Base/index.ts"],
       "Collision": ["Collision/index.ts"],
+      "Field": ["Field/index.ts"],
+      "Asteroid": ["Asteroid/index.ts"],
+      "PhysicsObject": ["Objects/PhysicsObject/index.ts"],
+      "Ship": ["Objects/Ship/index.ts"],
       "Renderer": ["Renderer/index.ts"],
-      "Base": ["Base/index.ts"]
+      "World": ["World/index.ts"]
     },
     "lib": ["DOM"]
   },

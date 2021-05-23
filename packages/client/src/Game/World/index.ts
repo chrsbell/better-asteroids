@@ -1,13 +1,18 @@
 import Base from 'Base';
 import CollisionMap from 'Collision';
-import {Body, Composite, Engine, IEngineDefinition} from 'matter-js';
+import Field from 'Field';
+import {Body, Composite, Engine, Events, IEngineDefinition} from 'matter-js';
 import Renderer from 'Renderer';
 
+/**
+ * Main game world.
+ */
 class World extends Base {
   private engine!: Engine;
   private requestId = -1;
   private renderer!: Renderer;
-  private collisionActions: CollisionMap = null!;
+  private collisionActions!: CollisionMap;
+  private field!: Field;
   constructor() {
     super();
     this.collisionActions = new CollisionMap();
@@ -15,23 +20,36 @@ class World extends Base {
       gravity: {
         scale: 0.001,
         x: 0,
-        y: 0,
+        y: 0.3,
       },
     });
     this.renderer = new Renderer(this.engine, this);
     this.renderer.start();
     this.requestId = window.requestAnimationFrame(this.main);
+    Events.on(
+      this.engine,
+      'collisionStart',
+      (event: Matter.IEventCollision<Engine>) => {
+        this.collisionActions.checkCollisions(event.pairs);
+      }
+    );
   }
   /**
    * Gets all composites in the world.
    * @returns {World}
    */
-  getComposite = (): Matter.World => this.engine.world;
+  public getComposite = (): Matter.World => this.engine.world;
   /**
    * Gets all of the world's bodies.
    * @returns {[Body]}
    */
-  getPhysicsObjects = (): Body[] => Composite.allBodies(this.getComposite());
+  public getPhysicsObjects = (): Body[] =>
+    Composite.allBodies(this.getComposite());
+  /**
+   * Gets the collision map.
+   * @returns {CollisionMap}
+   */
+  public getCollisionMap = (): CollisionMap => this.collisionActions;
   /**
    * Main update loop.
    */
