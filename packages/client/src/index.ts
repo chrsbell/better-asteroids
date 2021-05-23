@@ -9,6 +9,6 @@ const ground: Composeable = Bodies.rectangle(400, 610, 810, 60, {
   isStatic: true,
 });
 
-Composite.add(world.getComposites(), boxA);
-Composite.add(world.getComposites(), boxB);
-Composite.add(world.getComposites(), ground);
+Composite.add(world.getComposite(), boxA);
+Composite.add(world.getComposite(), boxB);
+Composite.add(world.getComposite(), ground);
