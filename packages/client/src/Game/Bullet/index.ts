@@ -4,7 +4,7 @@ import PhysicsObject from 'PhysicsObject';
 import World from 'World';
 
 class Bullet extends PhysicsObject {
-  private static VELOCITY = 20;
+  private static VELOCITY = 8;
   private static RADIUS = 2;
   private initialSpeed: Vector = {x: 0, y: 0};
   constructor(

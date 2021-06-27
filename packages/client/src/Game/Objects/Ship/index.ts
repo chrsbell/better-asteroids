@@ -11,7 +11,7 @@ class Ship extends PhysicsObject {
     Accelerate: 1000,
     Shoot: 100,
   };
-  private static Speed = 15;
+  private static Speed = 7;
   private canShoot = true;
   private canAccelerate = true;
   private shootTimeoutId = -1;
@@ -87,6 +87,7 @@ class Ship extends PhysicsObject {
     this.accelerateTimeoutId = -1;
   };
   public update = (): void => {
+    super.update();
     if (Controller.down(Keycodes.Space) && this.canShoot) this.shoot();
     if (Controller.down(Keycodes.W) && this.canAccelerate) this.accelerate();
     else if (!Controller.down(Keycodes.W) && this.accelerateTimeoutId < 0) {

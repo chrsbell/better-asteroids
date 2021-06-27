@@ -13,11 +13,11 @@ abstract class WorldObject {
   /**
    * Update operations before the matter-js update call.
    */
-  public update = (): void => {};
+  public abstract update(): void;
   /**
    * Update operations after the matter-js update call.
    */
-  public postUpdate = (): void => {};
+  public abstract postUpdate(): void;
 }
 
 export default WorldObject;

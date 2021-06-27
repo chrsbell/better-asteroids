@@ -64,6 +64,27 @@ class PhysicsObject extends WorldObject {
     Composite.remove(this.world.getComposite(), this.mBody);
     this.mBody = null!;
   };
+  public postUpdate = (): void => {};
+  update(): void {
+    const {position} = this.mBody;
+    let newX = position.x;
+    let newY = position.y;
+    if (position.x < -this.width) {
+      newX = this.world.width;
+    } else if (position.x > this.world.width) {
+      newX = -this.width;
+    }
+    if (position.y < -this.height) {
+      console.log(position.y);
+      newY = this.world.height;
+    } else if (position.y > this.world.height) {
+      newY = -this.height;
+    }
+    Body.setPosition(this.mBody, {
+      x: newX,
+      y: newY,
+    });
+  }
 }
 
 export default PhysicsObject;
