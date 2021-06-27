@@ -11,20 +11,19 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.ts(x)?$/,
-        loader: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.js$/,
-        use: 'babel-loader',
+        test: /\.(ts|js)$/,
+        loader: 'babel-loader',
         exclude: /node_modules/,
       },
     ],
   },
   resolve: {
     extensions: ['.ts', '.js'],
-    modules: [path.resolve(__dirname, 'src'), 'node_modules'],
+    modules: [
+      path.resolve(__dirname, 'src/Game'),
+      path.resolve(__dirname, 'src/Game/Objects'),
+      path.resolve(__dirname, 'node_modules'),
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({

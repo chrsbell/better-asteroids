@@ -3,15 +3,17 @@ import PhysicsObject from 'PhysicsObject';
 
 declare module 'matter-js' {
   interface Body {
-    name: string;
     physicsObject: PhysicsObject;
   }
   interface Composite {
-    name: string;
     physicsObject: PhysicsObject;
   }
   interface Constraint {
-    name: string;
     physicsObject: PhysicsObject;
   }
+}
+
+declare module 'matter-types' {
+  import {Body, Composite, Constraint} from 'matter-js';
+  type Composeable = Composite | Body | Constraint;
 }

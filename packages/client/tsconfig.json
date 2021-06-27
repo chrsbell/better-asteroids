@@ -5,10 +5,11 @@
     "paths": {
       // "*": ["types/common/*.d.ts"]
       // "*": ["node_modules/*"],
+      "assets/geometry": ["assets/geometry.ts"],
       "Base": ["Base/index.ts"],
       "Collision": ["Collision/index.ts"],
       "Field": ["Field/index.ts"],
-      "Asteroid": ["Asteroid/index.ts"],
+      "Asteroid": ["Objects/Asteroid/index.ts"],
       "PhysicsObject": ["Objects/PhysicsObject/index.ts"],
       "Ship": ["Objects/Ship/index.ts"],
       "Renderer": ["Renderer/index.ts"],

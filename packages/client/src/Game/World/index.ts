@@ -1,7 +1,8 @@
 import Base from 'Base';
 import CollisionMap from 'Collision';
 import Field from 'Field';
-import {Body, Composite, Engine, Events, IEngineDefinition} from 'matter-js';
+import {Composite, Engine, Events, IEngineDefinition} from 'matter-js';
+import PhysicsObject from 'PhysicsObject';
 import Renderer from 'Renderer';
 
 /**
@@ -13,18 +14,19 @@ class World extends Base {
   private renderer!: Renderer;
   private collisionActions!: CollisionMap;
   private field!: Field;
+  public width = window.innerWidth;
+  public height = window.innerHeight;
   constructor() {
     super();
-    this.collisionActions = new CollisionMap();
+    this.collisionActions = new CollisionMap(this);
     this.engine = Engine.create(<IEngineDefinition>{
       gravity: {
-        scale: 0.001,
         x: 0,
-        y: 0.3,
+        y: 0,
       },
     });
-    this.renderer = new Renderer(this.engine, this);
-    this.renderer.start();
+    this.renderer = new Renderer(this);
+    this.field = new Field(this);
     this.requestId = window.requestAnimationFrame(this.main);
     Events.on(
       this.engine,
@@ -34,6 +36,7 @@ class World extends Base {
       }
     );
   }
+  public init = (): void => {};
   /**
    * Gets all composites in the world.
    * @returns {World}
@@ -41,10 +44,10 @@ class World extends Base {
   public getComposite = (): Matter.World => this.engine.world;
   /**
    * Gets all of the world's bodies.
-   * @returns {[Body]}
+   * @returns {[PhysicsObject]}
    */
-  public getPhysicsObjects = (): Body[] =>
-    Composite.allBodies(this.getComposite());
+  public getPhysicsObjects = (): PhysicsObject[] =>
+    Composite.allBodies(this.getComposite()).map(body => body.physicsObject);
   /**
    * Gets the collision map.
    * @returns {CollisionMap}
@@ -53,14 +56,19 @@ class World extends Base {
   /**
    * Main update loop.
    */
-  main = (): void => {
+  public main = (): void => {
+    const objects: PhysicsObject[] = this.getPhysicsObjects();
+    objects.forEach(obj => obj.update());
     Engine.update(this.engine);
+    objects.forEach(obj => obj.postUpdate());
     this.requestId = window.requestAnimationFrame(this.main);
   };
-  reset = (): void => {
+  public reset = (): void => {
     window.cancelAnimationFrame(this.requestId);
     Engine.clear(this.engine);
     this.renderer.reset();
+    this.collisionActions.reset();
+    this.field.reset();
   };
 }
 
