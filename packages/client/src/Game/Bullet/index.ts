@@ -6,7 +6,7 @@ import World from 'World';
 class Bullet extends PhysicsObject {
   private static VELOCITY = 8;
   private static RADIUS = 2;
-  private initialSpeed: Vector = {x: 0, y: 0};
+  private initialSpeed!: Vector;
   constructor(
     world: World,
     x: number,
@@ -22,6 +22,7 @@ class Bullet extends PhysicsObject {
     this.setBody(
       Bodies.circle(0, 0, Bullet.RADIUS, {
         collisionFilter: {
+          category: Collision.filters.bullet,
           mask: Collision.filters.asteroid,
         },
       })
@@ -29,6 +30,7 @@ class Bullet extends PhysicsObject {
     this.addAction({
       pair: ['Bullet', 'Asteroid'],
       callback: (a: PhysicsObject, b: PhysicsObject) => {
+        a.delete();
         b.delete();
       },
     });

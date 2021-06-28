@@ -37,6 +37,7 @@ class CollisionMap extends WorldObject {
       const reverseAction: ActionCallback | undefined = this.actionMap.get(
         <CollisionPair>collPair.split('-').reverse().join('-')
       );
+      // this may not be necessary tbh
       if (action) {
         action(pair.bodyA.physicsObject, pair.bodyB.physicsObject);
       } else if (reverseAction) {
@@ -44,6 +45,8 @@ class CollisionMap extends WorldObject {
       }
     });
   };
+  public update = (): void => {};
+  public postUpdate = (): void => {};
   public init = (): void => {};
   public reset = (): void => {
     this.actionMap.clear();

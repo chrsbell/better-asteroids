@@ -9,3 +9,12 @@ declare interface KeyState {
 declare interface Code {
   [key: string]: string;
 }
+
+interface Level {
+  asteroidsOnScreen: number;
+  maxAsteroidsSpawned: number;
+}
+
+interface LevelData {
+  [key: number]: Level;
+}

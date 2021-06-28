@@ -25,6 +25,7 @@ class Ship extends PhysicsObject {
     this.setBody(
       Bodies.fromVertices(0, 0, Geometries.ship, {
         collisionFilter: {
+          category: Collision.filters.ship,
           mask: Collision.filters.asteroid,
         },
       })
@@ -32,9 +33,9 @@ class Ship extends PhysicsObject {
     this.mBody.friction = 0;
     // this.mBody.frictionAir = 0;
     this.addAction({
-      pair: ['Ship', 'Rectangle Body'],
+      pair: ['Ship', 'Asteroid'],
       callback: (a: PhysicsObject, b: PhysicsObject) =>
-        console.log(`Ship ${a} hit PObj ${b}`),
+        console.log('reset level, reduce num lives'),
     });
   };
   public reset = (): void => {

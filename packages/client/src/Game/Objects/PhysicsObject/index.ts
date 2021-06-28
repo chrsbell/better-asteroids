@@ -75,7 +75,6 @@ class PhysicsObject extends WorldObject {
       newX = -this.width;
     }
     if (position.y < -this.height) {
-      console.log(position.y);
       newY = this.world.height;
     } else if (position.y > this.world.height) {
       newY = -this.height;

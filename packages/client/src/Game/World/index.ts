@@ -59,8 +59,10 @@ class World extends Base {
   public main = (): void => {
     const objects: PhysicsObject[] = this.getPhysicsObjects();
     objects.forEach(obj => obj.update());
+    this.field.update();
     Engine.update(this.engine);
     objects.forEach(obj => obj.postUpdate());
+    // how many times to run this per second?
     this.requestId = window.requestAnimationFrame(this.main);
   };
   public reset = (): void => {
